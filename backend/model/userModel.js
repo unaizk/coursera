@@ -24,6 +24,7 @@ const userSchema = mongoose.Schema({
     timestamps:true
 });
 
+// to hash password before saving the data into database
 userSchema.pre('save', async function(next){
     if(!this.isModified('password')){
         next();
@@ -32,6 +33,12 @@ userSchema.pre('save', async function(next){
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password,salt)
 })
+
+// to check the password when the user is logging in
+
+userSchema.methods.matchPassword = async function(enteredPassword){
+    return await bcrypt.compare( enteredPassword , this.password )
+}
 
 
 const User = mongoose.model('User',userSchema);

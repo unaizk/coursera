@@ -171,6 +171,7 @@ const markAsComplete = asyncHandler(async (req, res) => {
     if (!enrolledStudent) {
         throw new Error('User not enrolled');
     } else {
+        // Update the complete field for the entire course
         course.complete = true;
         res.status(200).json({
             message: 'Course completed successfully',

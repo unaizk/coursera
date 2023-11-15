@@ -52,12 +52,20 @@ const registerUser = asyncHandler(async(req,res)=>{
 });
 
 const logoutUser = asyncHandler(async(req,res)=>{
-    res.status(200).send({message : 'User has logout'})
+
+    res.cookie('jwt','',{
+        httpOnly : true,
+        expires : new Date(0)
+    })
+    res.status(200).send({message : 'User logged out'})
 });
+
+
 
 
 export {
     authUser,
     registerUser,
-    logoutUser
+    logoutUser,
+    
 }

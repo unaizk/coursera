@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
+import cookieParser from "cookie-parser";
 dotenv.config(); // LOAD ENV VARIABLES
 
 
@@ -20,6 +21,8 @@ app.use(express.json());
 // The extended option set to true allows handling rich objects and arrays in the URL-encoded data.
 // This middleware makes the parsed data available in route handlers using req.body.
 app.use(express.urlencoded({extended:true}))
+
+app.use(cookieParser());
 
 app.use('/api/users',userRoutes)
 

@@ -1,5 +1,5 @@
 
-// Define a sample course object
+
 const sampleCourse1 = {
     id: 1,
     name: 'Introduction to React Native',
@@ -22,12 +22,12 @@ const sampleCourse1 = {
         topic: 'Building Your First App',
         content: 'Creating a simple mobile app using React Native components.'
       },
-      // Additional weeks and topics...
+     
     ],
     students: [],
   };
   
-  // Define another sample course object
+  
   const sampleCourse2 = {
     id: 2,
     name: 'Advanced JavaScript',
@@ -88,7 +88,7 @@ const sampleCourse1 = {
     instructor: 'Samuel Green',
     description: 'Learn the fundamentals of Node.js and server-side JavaScript.',
     enrollmentStatus: 'In-progress',
-    thumbnail: 'https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image/f52b0521ed2e.jpg', // Link to the course thumbnail
+    thumbnail: 'https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image/f52b0521ed2e.jpg', 
     duration: '6 weeks',
     schedule: 'Fridays, 6:30 PM - 8:30 PM',
     location: 'Online',
@@ -108,6 +108,6 @@ const sampleCourse1 = {
     students: [],
   };
   
-  // Export an array containing the sample courses
+  // Exporting an array containing the sample courses
   export const sampleCourses = [sampleCourse1, sampleCourse2,sampleCourse3, sampleCourse4];
   

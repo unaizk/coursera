@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import User from '../model/userModel.js';
 import generateToken from '../utils/generateToken.js';
 import { sampleCourses } from '../courses/sampleCourse.js';
+import { enrollStudentInCourse } from '../helpers/userHelper.js';
 
 const authUser = asyncHandler(async(req,res)=>{
     
@@ -74,7 +75,7 @@ const getAllCourses = asyncHandler(async(req,res)=>{
 })
 
 const getCourse = asyncHandler(async(req,res)=>{
-    const courseId = parseInt(req.params.id);
+    const courseId = parseInt(req.params.courseId);
     const course = sampleCourses.find(course => course.id === courseId);
 
     if (!course) {
@@ -91,6 +92,42 @@ const getCourse = asyncHandler(async(req,res)=>{
      });
 })
 
+const enrollCourse = asyncHandler(async (req, res) => {
+    const courseId = parseInt(req.params.courseId);
+    const userId = req.user._id;
+    try {
+        const course = sampleCourses.find(course => course.id === courseId);
+
+        if (!course) {
+            res.status(404);
+            throw new Error('Course not found');
+        }
+
+        const isEnrolled = course.students.find((student)=> {
+            return student.userId.equals(userId)
+        })
+
+        if(isEnrolled){
+            throw new Error('User already enrolled')
+        }else{
+            // Call the function to enroll the student in the course
+            const enrolledCourse = await enrollStudentInCourse(course, userId);
+
+            // Send a response with the updated students array
+                res.json({
+                    message: 'Enrollment successful',
+                    courseId,
+                    userId,
+                    students: enrolledCourse.students,
+                });
+
+        }
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+
 
 
 
@@ -99,5 +136,6 @@ export {
     registerUser,
     logoutUser,
     getAllCourses,
-    getCourse
+    getCourse,
+    enrollCourse
 }

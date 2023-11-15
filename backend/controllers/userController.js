@@ -68,10 +68,27 @@ const getAllCourses = asyncHandler(async(req,res)=>{
         name: course.name,
         instructor: course.instructor,
         thumbnail : course.thumbnail
-        // Add more relevant details as needed
       }));
     
       res.json(coursesInfo);
+})
+
+const getCourse = asyncHandler(async(req,res)=>{
+    const courseId = parseInt(req.params.id);
+    const course = sampleCourses.find(course => course.id === courseId);
+
+    if (!course) {
+        res.status(404)
+        throw new Error('Course not found')
+    }
+
+     res.json({
+        name : course.name,
+        instructor : course.instructor,
+        description : course.description,
+        thumbnail : course.thumbnail,
+        duration : course.duration
+     });
 })
 
 
@@ -81,5 +98,6 @@ export {
     authUser,
     registerUser,
     logoutUser,
-    getAllCourses
+    getAllCourses,
+    getCourse
 }

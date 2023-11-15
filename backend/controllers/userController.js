@@ -64,17 +64,19 @@ const logoutUser = asyncHandler(async(req,res)=>{
 
 const getAllCourses = asyncHandler(async(req,res)=>{
 
+    
     const coursesInfo = sampleCourses.map(course => ({
         id: course.id,
         name: course.name,
         instructor: course.instructor,
-        thumbnail : course.thumbnail
+        thumbnail : course.thumbnail,
       }));
     
       res.json(coursesInfo);
 })
 
 const getCourse = asyncHandler(async(req,res)=>{
+
     const courseId = parseInt(req.params.courseId);
     const course = sampleCourses.find(course => course.id === courseId);
 
@@ -93,7 +95,7 @@ const getCourse = asyncHandler(async(req,res)=>{
 })
 
 const enrollCourse = asyncHandler(async (req, res) => {
-    const courseId = parseInt(req.params.courseId);
+    const courseId = parseInt(req.body.courseId);
     const userId = req.user._id;
     try {
         const course = sampleCourses.find(course => course.id === courseId);
@@ -111,21 +113,73 @@ const enrollCourse = asyncHandler(async (req, res) => {
             throw new Error('User already enrolled')
         }else{
             // Call the function to enroll the student in the course
-            const enrolledCourse = await enrollStudentInCourse(course, userId);
+            await enrollStudentInCourse(course, userId);
 
             // Send a response with the updated students array
-                res.json({
-                    message: 'Enrollment successful',
-                    courseId,
-                    userId,
-                    students: enrolledCourse.students,
-                });
+                res.status(201).json({message : 'Enrolled succussfully'});
 
         }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
+
+
+
+const getEnrollCourses = asyncHandler(async (req, res) => {
+    const userId = req.user._id;
+
+    // Iterate over all courses
+    const enrolledCourses = sampleCourses.filter((course) => {
+        // Check if the course has a students array and if the user is enrolled
+        return course.students && course.students.some((student) => student.userId?.equals(userId));
+    });
+
+
+    if (!enrolledCourses.length) {
+        throw new Error('You have not enrolled in any courses');
+    }
+
+    const filterEnrolledCourses =  enrolledCourses.map((course) =>{
+        return {name :course.name,
+                intructor : course.instructor,
+                thumbnail : course.thumbnail,
+                duration : course.duration,
+                enrollStatus : course.enrollmentStatus,
+                complete : course.complete
+            }
+    })
+    if(!filterEnrolledCourses){
+        throw new Error('Something went wrong')
+    }
+    res.status(200).json(filterEnrolledCourses);
+});
+
+
+const markAsComplete = asyncHandler(async (req, res) => {
+    const courseId = parseInt(req.body.courseId);
+    const userId = req.user._id;
+
+    const course = sampleCourses.find((course) => course.id === courseId);
+
+    if (!course) {
+        res.status(404);
+        throw new Error('Course not found');
+    }
+    const enrolledStudent = course.students.find((student) => student.userId.equals(userId));
+    
+    if (!enrolledStudent) {
+        throw new Error('User not enrolled');
+    } else {
+        course.complete = true;
+        res.status(200).json({
+            message: 'Course completed successfully',
+        });
+    }
+});
+
+
+
 
 
 
@@ -137,5 +191,7 @@ export {
     logoutUser,
     getAllCourses,
     getCourse,
-    enrollCourse
+    enrollCourse,
+    getEnrollCourses,
+    markAsComplete
 }

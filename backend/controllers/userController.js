@@ -126,7 +126,7 @@ const enrollCourse = asyncHandler(async (req, res) => {
 
 
 
-const getEnrollCourses = asyncHandler(async (req, res) => {
+const getAllEnrollCourses = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
     // Iterate over all courses
@@ -146,7 +146,6 @@ const getEnrollCourses = asyncHandler(async (req, res) => {
                 thumbnail : course.thumbnail,
                 duration : course.duration,
                 enrollStatus : course.enrollmentStatus,
-                complete : course.complete
             }
     })
     if(!filterEnrolledCourses){
@@ -180,7 +179,29 @@ const markAsComplete = asyncHandler(async (req, res) => {
 });
 
 
+const getEnrollCourse = asyncHandler(async(req,res)=>{
+    const courseId = parseInt(req.params.courseId);
+    const userId = req.user._id;
 
+    const course = sampleCourses.find((course) =>{
+        return course.id === courseId
+    })
+    
+    if(!course){
+        throw new Error('Course not found')
+    }
+
+
+    const enrollCourse = course.students.find((student) =>{
+        return student?.userId?.equals(userId)
+    })
+
+    if(!enrollCourse){
+        throw new Error('User has not enrolled the course')
+    }
+
+    res.status(200).json(course)
+})
 
 
 
@@ -193,6 +214,7 @@ export {
     getAllCourses,
     getCourse,
     enrollCourse,
-    getEnrollCourses,
-    markAsComplete
+    getAllEnrollCourses,
+    markAsComplete,
+    getEnrollCourse
 }

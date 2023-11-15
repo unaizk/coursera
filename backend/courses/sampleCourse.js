@@ -11,7 +11,7 @@ const sampleCourse1 = {
     schedule: 'Tuesdays and Thursdays, 6:00 PM - 8:00 PM',
     location: 'Online',
     complete : false,
-    prerequisites: ['Basic JavaScript knowledge', 'Familiarity with React'],
+    prerequisites: 'Basic JavaScript knowledge',
     syllabus: [
       {
         week: 1,
@@ -40,7 +40,7 @@ const sampleCourse1 = {
     schedule: 'Mondays and Wednesdays, 7:00 PM - 9:00 PM',
     location: 'Online',
     complete : false,
-    prerequisites: ['Intermediate JavaScript knowledge', 'Understanding of ES6'],
+    prerequisites: 'Intermediate JavaScript knowledge', 
     syllabus: [
       {
         week: 1,
@@ -68,7 +68,7 @@ const sampleCourse1 = {
     schedule: 'Mondays and Fridays, 6:30 PM - 8:30 PM',
     location: 'Online',
     complete : false,
-    prerequisites: ['Intermediate JavaScript knowledge', 'Familiarity with HTML and CSS'],
+    prerequisites: 'Intermediate JavaScript knowledge',
     syllabus: [
       {
         week: 1,
@@ -96,7 +96,7 @@ const sampleCourse1 = {
     schedule: 'Fridays, 6:30 PM - 8:30 PM',
     location: 'Online',
     complete : false,
-    prerequisites: ['Basic JavaScript knowledge'],
+    prerequisites: 'Basic JavaScript knowledge',
     syllabus: [
       {
         week: 1,

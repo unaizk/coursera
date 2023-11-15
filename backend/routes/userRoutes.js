@@ -1,5 +1,5 @@
 import express from 'express';
-import { authUser, registerUser, logoutUser, getAllCourses, getCourse, enrollCourse, getEnrollCourses, markAsComplete} from '../controllers/userController.js';
+import { authUser, registerUser, logoutUser, getAllCourses, getCourse, enrollCourse, getAllEnrollCourses, markAsComplete, getEnrollCourse} from '../controllers/userController.js';
 import { protectUser } from '../middleware/authMiddleware.js';
 
 
@@ -15,11 +15,13 @@ router.get('/courses',getAllCourses);
 
 router.get('/courses/:courseId', getCourse)
 
-router.post('/enrollCourse',protectUser,enrollCourse)
+router.post('/enroll-course',protectUser,enrollCourse)
 
-router.get('/enrollCourses',protectUser, getEnrollCourses)
+router.get('/enroll-courses',protectUser, getAllEnrollCourses)
 
-router.post('/courseComplete',protectUser, markAsComplete)
+router.post('/course-complete',protectUser, markAsComplete)
+
+router.get('/enroll-specific-course/:courseId',protectUser, getEnrollCourse)
 
 
 

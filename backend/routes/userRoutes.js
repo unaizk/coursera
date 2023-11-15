@@ -1,5 +1,5 @@
 import express from 'express';
-import { authUser, registerUser, logoutUser} from '../controllers/userController.js';
+import { authUser, registerUser, logoutUser, getAllCourses} from '../controllers/userController.js';
 import { protectUser } from '../middleware/authMiddleware.js';
 
 
@@ -10,6 +10,8 @@ router.post('/',registerUser);
 router.post('/auth',authUser);
 
 router.post('/logout',logoutUser);
+
+router.get('/courses',getAllCourses)
 
 
 

@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import User from '../model/userModel.js';
 import generateToken from '../utils/generateToken.js';
+import { sampleCourses } from '../courses/sampleCourse.js';
 
 const authUser = asyncHandler(async(req,res)=>{
     
@@ -60,6 +61,19 @@ const logoutUser = asyncHandler(async(req,res)=>{
     res.status(200).send({message : 'User logged out'})
 });
 
+const getAllCourses = asyncHandler(async(req,res)=>{
+
+    const coursesInfo = sampleCourses.map(course => ({
+        id: course.id,
+        name: course.name,
+        instructor: course.instructor,
+        thumbnail : course.thumbnail
+        // Add more relevant details as needed
+      }));
+    
+      res.json(coursesInfo);
+})
+
 
 
 
@@ -67,5 +81,5 @@ export {
     authUser,
     registerUser,
     logoutUser,
-    
+    getAllCourses
 }

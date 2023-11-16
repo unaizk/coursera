@@ -9,7 +9,7 @@ const Header = () => {
     <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <>
            <LinkContainer to='/' style={{marginLeft: '50px', fontSize: "24px" }}>
-           <Navbar.Brand >Coursera</Navbar.Brand>
+           <Navbar.Brand >COURSERA</Navbar.Brand>
            </LinkContainer>
             
         

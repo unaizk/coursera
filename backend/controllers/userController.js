@@ -3,6 +3,7 @@ import User from '../model/userModel.js';
 import generateToken from '../utils/generateToken.js';
 import { sampleCourses } from '../courses/sampleCourse.js';
 import { enrollStudentInCourse } from '../helpers/userHelper.js';
+import { enrolledSpecificCourse } from '../helpers/userHelper.js';
 
 const authUser = asyncHandler(async(req,res)=>{
     
@@ -159,23 +160,15 @@ const markAsComplete = asyncHandler(async (req, res) => {
     const courseId = parseInt(req.body.courseId);
     const userId = req.user._id;
 
-    const course = sampleCourses.find((course) => course.id === courseId);
-
-    if (!course) {
-        res.status(404);
-        throw new Error('Course not found');
-    }
-    const enrolledStudent = course.students.find((student) => student.userId.equals(userId));
+    const course = await enrolledSpecificCourse(courseId,userId)
+    if(course){
+         // Update the complete field for the entire course
+         course.complete = true;
+         res.status(200).json({
+             message: 'Course completed successfully',
+         });
+    }  
     
-    if (!enrolledStudent) {
-        throw new Error('User not enrolled');
-    } else {
-        // Update the complete field for the entire course
-        course.complete = true;
-        res.status(200).json({
-            message: 'Course completed successfully',
-        });
-    }
 });
 
 
@@ -183,24 +176,12 @@ const getEnrollCourse = asyncHandler(async(req,res)=>{
     const courseId = parseInt(req.params.courseId);
     const userId = req.user._id;
 
-    const course = sampleCourses.find((course) =>{
-        return course.id === courseId
-    })
+    const course = await enrolledSpecificCourse(courseId,userId)
     
-    if(!course){
-        throw new Error('Course not found')
+    if(course){
+        res.status(200).json(course)
     }
-
-
-    const enrollCourse = course.students.find((student) =>{
-        return student?.userId?.equals(userId)
-    })
-
-    if(!enrollCourse){
-        throw new Error('User has not enrolled the course')
-    }
-
-    res.status(200).json(course)
+    
 })
 
 

@@ -1,4 +1,4 @@
-
+import { sampleCourses } from "../courses/sampleCourse.js";
 
 // Function to enroll a student in a course using promises
 export const enrollStudentInCourse = (course, userId) => {
@@ -17,5 +17,21 @@ export const enrollStudentInCourse = (course, userId) => {
     });
 };
 
+
+export const enrolledSpecificCourse = (courseId, userId) =>{
+    return new Promise((resolve,reject) =>{
+        const course = sampleCourses.find((course) => course.id === courseId);
+
+        if (!course) {
+            reject(new Error('Course not found'));
+        }
+        const enrolledStudent = course.students.find((student) => student.userId.equals(userId));
+    
+        if (!enrolledStudent) {
+            reject(new Error('User not enrolled'));
+        }
+        resolve(course)
+    })
+}
 
 

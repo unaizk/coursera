@@ -6,7 +6,7 @@ import { useState , useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {useLoginMutation} from '../slices/userApiSlice'
 import { setCredential } from '../slices/authSlice';
-
+import { toast } from 'react-toastify';
 
 const LoginScreen = () => {
     
@@ -33,7 +33,7 @@ const submitHandle = async(e)=>{
         dispatch(setCredential({...res}))
         navigate('/')
     } catch (err) {
-        console.log(err?.data?.message || err.error);
+        toast.error(err?.data?.message || err.error);
     }
 }
   return (

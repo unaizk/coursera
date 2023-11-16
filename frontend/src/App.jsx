@@ -1,11 +1,17 @@
 import React from 'react'
+import Header from './component/Header'
+import HomeScreen from './screens/HomeScreen'
+import { Container } from 'react-bootstrap'
+import { Outlet } from 'react-router-dom'
 
 const App = () => {
   return (
     <>
-      <h1>
-        Coursera
-      </h1>
+      <Header />
+      <Container className='my-2'>
+        <Outlet />
+      </Container>
+      
     </>
   )
 }

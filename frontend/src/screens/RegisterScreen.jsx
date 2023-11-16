@@ -2,7 +2,13 @@ import React from 'react'
 import FormContainer from '../component/FormContainer'
 import { Form , Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useState ,useEffect } from 'react';
+import { useRegisterMutation } from '../slices/userApiSlice';
+import { setCredential } from '../slices/authSlice';
+import Loader from '../component/Loader';
+import {toast} from 'react-toastify'
 
 const RegisterScreen = () => {
     const [name, setName] = useState('')
@@ -10,12 +16,39 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { userInfo } = useSelector((state) => state.auth);
+
+    const [register, {isLoading}] = useRegisterMutation()
+
+    useEffect(()=>{
+        if(userInfo){
+            navigate('/')
+        }
+    },[userInfo,navigate])
+
+
     const submitHandle = async(e)=>{
         e.preventDefault();
-        console.log('submit');
+        if(password !== confirmPassword){
+            toast.error('Confirm password does not match')
+        }else{
+            try {
+                const res = await register({name, email, password}).unwrap();
+                dispatch(setCredential({...res}))
+                navigate('/')
+            } catch (err) {
+                toast.error(err?.data?.message || err.error)
+            }
+        }
+        
     }
       return (
         <FormContainer>
+            <div style={{ position: 'relative' }}>
+            {isLoading && <Loader />}
             <h1 style={{textAlign : 'center' , fontFamily: 'Lato, sans-serif', fontSize: '50px', fontWeight: 'bold'}}>Sign Up</h1>
             <Form onSubmit={submitHandle}>
                 <Form.Group className='my-2' controlId='name'>
@@ -41,6 +74,7 @@ const RegisterScreen = () => {
                     </Col>
                 </Row>
             </Form>
+            </div>
         </FormContainer>
       )
 }

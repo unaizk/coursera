@@ -49,8 +49,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body : data
             })
         }),
+        enrollingCourses : builder.mutation({
+            query : () => ({
+                url : `${USER_URL}/enroll-courses`,
+                method : 'GET',
+            })
+        }),
+        completedCourse : builder.mutation({
+            query : (data) => ({
+                url : `${USER_URL}/course-complete`,
+                method : 'POST',
+                body : data
+            })
+        }),
 
     })
 })
 
-export const {useLoginMutation, useLogoutMutation, useRegisterMutation , useCoursesMutation, useCourseMutation, useEnrolledCourseMutation,useEnrollingCourseMutation} = userApiSlice
+export const {useLoginMutation, useLogoutMutation, useRegisterMutation , useCoursesMutation, useCourseMutation, useEnrolledCourseMutation,useEnrollingCourseMutation, useEnrollingCoursesMutation, useCompletedCourseMutation} = userApiSlice

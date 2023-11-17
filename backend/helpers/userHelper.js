@@ -20,7 +20,7 @@ export const enrollStudentInCourse = (course, userId) => {
 export const enrolledSpecificCourse = (courseId, userId) =>{
     return new Promise((resolve,reject) =>{
         const course = sampleCourses.find((course) => course.id === courseId);
-
+        console.log(course,'jjjjjjjjjjjjjjjjj');
         if (!course) {
             reject(new Error('Course not found'));
         }

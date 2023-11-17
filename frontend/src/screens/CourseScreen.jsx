@@ -8,6 +8,10 @@ import Loader from '../component/Loader';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useEnrollingCourseMutation } from '../slices/userApiSlice';
+import { useCompletedCourseMutation } from '../slices/userApiSlice';
+
+import ToggleButton from 'react-bootstrap/ToggleButton';
+
 
 const CourseScreen = () => {
     const { courseId } = useParams();
@@ -19,6 +23,8 @@ const CourseScreen = () => {
     const [enrollingCourseApiCall, {isLoading : isLoadingEnrollingCourse}] = useEnrollingCourseMutation()
     const [course, setCourse] = useState(null);
     const [enrollCourse, setEnrollCourse] = useState(null)
+    const [checked, setChecked] = useState(false);
+    const [completeCourseApi, {isLoading : isLoadingCompleteCourse}] = useCompletedCourseMutation()
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -26,7 +32,6 @@ const CourseScreen = () => {
                 console.log("Fetching course...");
                 const courseData = await courseApiCall(courseId).unwrap();
                 if (!userInfo) {
-                    
                     console.log('Regular Course:', courseData);
                     setCourse(courseData);
                 } else if (userInfo && userInfo._id) {
@@ -35,6 +40,7 @@ const CourseScreen = () => {
                        
                         console.log('Enrolled Course:', courseData);
                         setEnrollCourse(courseData);
+                        setChecked(courseData.complete)
                     } else {
                         setCourse(courseData);
                     }
@@ -48,30 +54,42 @@ const CourseScreen = () => {
         
         fetchCourse();
         
-    }, [courseApiCall, courseId, enrollCourseApiCall, userInfo]);
+    }, [courseApiCall, courseId, enrollCourseApiCall, userInfo, completeCourseApi]);
 
     
     const enrollingCourse = async (courseId) => {
         try {
             console.log(courseId);
-            // Make the API call to enroll the course
+            // Making the API call to enroll the course
             await enrollingCourseApiCall({ courseId }).unwrap();
     
-            // Refetch the enrolled course details
+            // Refetching the enrolled course details
             const enrolledCourseData = await enrollCourseApiCall(courseId).unwrap();
     
-            // Update the enrollCourse state with the new data
+            // Updating enrollCourse state with the new data
             setEnrollCourse(enrolledCourseData);
         } catch (error) {
             console.error("Error enrolling course:", error);
             toast.error(error?.data?.message || error.error);
         }
-    };                         
+    };                   
+    
+    const handleToggleClick = async () => {
+        try {
+            const res = await completeCourseApi({ courseId});
+            setChecked(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    
+
+
 
     return (
         <>
         {enrollCourse ? (
-            // Render content for enrolled course
+            // Rendering content for enrolled course
             <Card className="mx-auto shadow p-3 mb-5 bg-white rounded" style={{ width: '80%', height: 'fit-content', marginTop: '50px' }}>
                    <Card.Img
                     variant="top"
@@ -96,6 +114,18 @@ const CourseScreen = () => {
                             <p>{item.content}</p>
                         </div>
                     ))}
+                   <ToggleButton
+                    className="mb-2"
+                    id="toggle-check"
+                    type="checkbox"
+                    variant={checked ? 'dark' : 'outline-dark'}
+                    checked={checked}
+                    value="1"
+                    
+                    onClick={() => handleToggleClick(enrollCourse.id)}
+                    >
+                    {checked ? 'Completed' : 'Incomplete'}
+                    </ToggleButton>
 
                 </Card.Body>
             </Card>
@@ -114,14 +144,15 @@ const CourseScreen = () => {
                     <Card.Text>{course?.instructor}</Card.Text>
                     <Card.Text><span style={{ fontWeight: 'bold' }}>Description</span>: {course?.description}</Card.Text>
                     <Card.Text><span style={{ fontWeight: 'bold' }}>Duration</span>: {course?.duration}</Card.Text>
-                    {userInfo ? <Card.Text><span style={{ fontWeight: 'bold' }}>Status</span>: {course?.enrollmentStatus}</Card.Text> : ''}
-                    {userInfo ?  <Button onClick={() => enrollingCourse(course.id)} variant='dark' className='mt-3' size='lg'>Enroll</Button> :''}
+                    {userInfo ? <Card.Text><span style={{ fontWeight: 'bold' }}>Status</span>: {course?.enrollmentStatus}</Card.Text> : <span style={{color : 'red', fontWeight: 'bold'}}>Sign in for Enroll the course</span>}
+                    {userInfo ?  <Button onClick={() => enrollingCourse(course.id)} variant='dark' className='mt-3' size='lg'>Enroll now</Button> :''}
                     
                 </Card.Body>
             </Card>
         
            </>
         ) : (
+
             <Card className="mx-auto shadow p-3 mb-5 bg-white rounded" style={{ width: '80%', height: 'fit-content', marginTop: '50px' }}>
             <Card.Body className="text-center">
                 <Card.Text>

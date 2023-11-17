@@ -136,15 +136,16 @@ const getAllEnrollCourses = asyncHandler(async (req, res) => {
         throw new Error('You have not enrolled in any courses');
     }
 
-    const filterEnrolledCourses =  enrolledCourses.map((course) =>{
-        return {id : course.id,
+    const filterEnrolledCourses =  enrolledCourses.map((course) =>({
+                id : course.id,
                 name :course.name,
-                intructor : course.instructor,
+                instructor : course.instructor,
+                description : course.description,
                 thumbnail : course.thumbnail,
                 duration : course.duration,
-                enrollStatus : course.enrollmentStatus,
-            }
-    })
+                enrollmentStatus : course.enrollmentStatus,
+            
+    }))
     if(!filterEnrolledCourses){
         throw new Error('Something went wrong')
     }
@@ -154,15 +155,16 @@ const getAllEnrollCourses = asyncHandler(async (req, res) => {
 
 const markAsComplete = asyncHandler(async (req, res) => {
     const courseId = parseInt(req.body.courseId);
+  
     const userId = req.user._id;
 
     const course = await enrolledSpecificCourse(courseId,userId)
     if(course){
-         // Update the complete field for the entire course
-         course.complete = true;
-         res.status(200).json({
-             message: 'Course completed successfully',
-         });
+          // Toggle the complete field for the entire course
+          course.complete = !course.complete;
+        console.log(course.complete,'kkkkkkkkkkkkkkkkkkkkk');
+        
+         res.status(200).json(course.complete);
     }  
     
 });

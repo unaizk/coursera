@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 
 const SearchBar = ({ handleSearch }) => {
   return (
-    <Form style={{ marginTop: '50px' }}>
+    <Form style={{ marginTop: '50px', marginLeft : '40px'}}>
       <Form.Control
         type="text"
         placeholder="Search courses"

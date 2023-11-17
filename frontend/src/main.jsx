@@ -11,6 +11,7 @@ import LoginScreen from './screens/LoginScreen.jsx'
 import RegisterScreen from './screens/RegisterScreen.jsx'
 import DashBoard from './screens/DashBoard.jsx'
 import PrivateRoute from './component/PrivateRoute.jsx'
+import CourseScreen from './screens/CourseScreen.jsx'
 
 
 const router =  createBrowserRouter(
@@ -20,6 +21,7 @@ const router =  createBrowserRouter(
       <Route index={true} path='/' element={<HomeScreen />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
+      <Route path='/course/:courseId' element={<CourseScreen />} />
 
       {/* Private Route */}
       <Route path='' element={<PrivateRoute />}>

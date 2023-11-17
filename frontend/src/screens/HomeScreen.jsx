@@ -6,6 +6,7 @@ import Loader from '../component/Loader';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
 import Caraousel from '../component/Carousel';
 import SearchBar from '../component/SearchBar';
+import { Link } from 'react-router-dom';
 
 
 const HomeScreen = () => {
@@ -67,12 +68,14 @@ const HomeScreen = () => {
           {isLoading && <Loader />}
           {currentCourses.map((course) => (
             <Col key={course.id} xs={12} md={6} lg={4}>
-              <Courses courses={course} />
+              <Link to={`/course/${course.id}`} style={{ textDecoration: 'none' }}>
+                <Courses courses={course} />
+              </Link>
             </Col>
           ))}
         </Row>
         <Row>
-          <Col className="d-flex justify-content-center mt-3">
+          <Col className="d-flex justify-content-center mt-5">
             <Pagination>
               {Array.from({ length: Math.ceil(courses.length / coursesPerPage) }, (_, index) => (
                 <Pagination.Item 

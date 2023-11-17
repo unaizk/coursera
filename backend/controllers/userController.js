@@ -91,7 +91,8 @@ const getCourse = asyncHandler(async(req,res)=>{
         instructor : course.instructor,
         description : course.description,
         thumbnail : course.thumbnail,
-        duration : course.duration
+        duration : course.duration,
+        students : course.students
      });
 })
 

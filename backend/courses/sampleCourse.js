@@ -5,7 +5,7 @@ const sampleCourse1 = {
     name: 'Introduction to React Native',
     instructor: 'John Doe',
     description: 'Learn the basics of React Native development and build your first mobile app.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://www.trycatchclasses.com/wp-content/uploads/2020/02/React-Native-1.jpg', // Link to the course thumbnail
     duration: '8 weeks',
     schedule: 'Tuesdays and Thursdays, 6:00 PM - 8:00 PM',
@@ -34,7 +34,7 @@ const sampleCourse1 = {
     name: 'Advanced JavaScript',
     instructor: 'Jane Doe',
     description: 'Dive deep into advanced JavaScript concepts and best practices.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://1.bp.blogspot.com/-pdqcVeIQp64/XDX7TzdRdcI/AAAAAAAAM8E/ZmGuB6caZqIGmEflGHcj3zgXJJrmqRLdgCLcBGAs/w1200-h630-p-k-no-nu/Free%2BCourses%2Bto%2Blearn%2BJavaScript.jpg', // Link to the course thumbnail
     duration: '6 weeks',
     schedule: 'Mondays and Wednesdays, 7:00 PM - 9:00 PM',
@@ -62,7 +62,7 @@ const sampleCourse1 = {
     name: 'Web Development with React',
     instructor: 'Emily Smith',
     description: 'Build modern web applications using React.js and its ecosystem.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://elysiumacademy.org/wp-content/uploads/2018/12/REACT-JS.jpg', // Link to the course thumbnail
     duration: '10 weeks',
     schedule: 'Mondays and Fridays, 6:30 PM - 8:30 PM',
@@ -90,7 +90,7 @@ const sampleCourse1 = {
     name: 'Node.js Basics',
     instructor: 'Samuel Green',
     description: 'Learn the fundamentals of Node.js and server-side JavaScript.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://miro.medium.com/v2/resize:fit:1200/1*xdo0UBpyszvD7-7EH4TkIA.png', 
     duration: '6 weeks',
     schedule: 'Fridays, 6:30 PM - 8:30 PM',
@@ -117,7 +117,7 @@ const sampleCourse1 = {
     name: 'Python Programming Basics',
     instructor: 'Alex Johnson',
     description: 'Get started with the fundamentals of Python programming language.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://www.freecodecamp.org/news/content/images/2022/08/maxresdefault-1.jpeg', // Link to the course thumbnail
     duration: '8 weeks',
     schedule: 'Tuesdays and Thursdays, 6:00 PM - 8:00 PM',
@@ -144,7 +144,7 @@ const sampleCourse1 = {
     name: 'Machine Learning Fundamentals',
     instructor: 'Sophia Rodriguez',
     description: 'Explore the basics of machine learning and its applications.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://www.freecodecamp.org/news/content/images/2022/01/machine-learning-banner-2.png', // Link to the course thumbnail
     duration: '10 weeks',
     schedule: 'Mondays and Wednesdays, 7:00 PM - 9:00 PM',
@@ -171,7 +171,7 @@ const sampleCourse1 = {
     name: 'Data Science with R',
     instructor: 'Daniel Brown',
     description: 'Learn data science using the R programming language.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://nareshit.com/wp-content/uploads/2018/09/Data-science-with-r-language-nareshit.jpg', // Link to the course thumbnail
     duration: '12 weeks',
     schedule: 'Wednesdays and Fridays, 6:30 PM - 8:30 PM',
@@ -198,7 +198,7 @@ const sampleCourse1 = {
     name: 'Full Stack Web Development',
     instructor: 'Ethan Wilson',
     description: 'Become a full-stack web developer with hands-on projects.',
-    enrollmentStatus: 'Open',
+    enrollmentStatus: 'In progress',
     thumbnail: 'https://codingbytes.com/wp-content/uploads/2022/03/full-stack-web-development.jpg', // Link to the course thumbnail
     duration: '14 weeks',
     schedule: 'Thursdays, 6:30 PM - 8:30 PM',

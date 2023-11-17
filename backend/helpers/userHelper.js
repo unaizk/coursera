@@ -5,10 +5,9 @@ export const enrollStudentInCourse = (course, userId) => {
     return new Promise((resolve, reject) => {
        if(course && userId){
             // Enroll the student
-            course.enrollmentStatus = 'Close';
+            course.enrollmentStatus = 'Enrolled';
             course.students.push({
                 userId,
-                // Add more student details as needed
             });
             resolve(course);
        }else{

@@ -86,18 +86,12 @@ const getCourse = asyncHandler(async(req,res)=>{
         throw new Error('Course not found')
     }
 
-     res.json({
-        name : course.name,
-        instructor : course.instructor,
-        description : course.description,
-        thumbnail : course.thumbnail,
-        duration : course.duration,
-        students : course.students
-     });
+     res.json(course);
 })
 
 const enrollCourse = asyncHandler(async (req, res) => {
     const courseId = parseInt(req.body.courseId);
+    console.log(courseId,'courseId');
     const userId = req.user._id;
     try {
         const course = sampleCourses.find(course => course.id === courseId);
@@ -143,7 +137,8 @@ const getAllEnrollCourses = asyncHandler(async (req, res) => {
     }
 
     const filterEnrolledCourses =  enrolledCourses.map((course) =>{
-        return {name :course.name,
+        return {id : course.id,
+                name :course.name,
                 intructor : course.instructor,
                 thumbnail : course.thumbnail,
                 duration : course.duration,

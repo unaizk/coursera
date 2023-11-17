@@ -14,7 +14,8 @@ const CourseScreen = () => {
 
     const [courseApiCall, { isLoading: isLoadingCourse }] = useCourseMutation();
     const [enrollCourseApiCall, { isLoading: isLoadingEnrollCourse }] = useEnrolledCourseMutation();
-    const [course, setCourse] = useState();
+    const [course, setCourse] = useState(null);
+    const [enrollCourse, setEnrollCourse] = useState(null)
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -30,7 +31,7 @@ const CourseScreen = () => {
                     if (isUserEnrolled) {
                         const enrolledCourseData = await enrollCourseApiCall(courseId).unwrap();
                         console.log('Enrolled Course:', enrolledCourseData);
-                        setCourse(enrolledCourseData);
+                        setEnrollCourse(enrolledCourseData);
                     } else {
                         setCourse(courseData);
                     }
@@ -46,22 +47,62 @@ const CourseScreen = () => {
 
     return (
         <>
-        {course && (
+        {enrollCourse ? (
+            // Render content for enrolled course
+            <Card className="mx-auto shadow p-3 mb-5 bg-white rounded" style={{ width: '80%', height: 'fit-content', marginTop: '50px' }}>
+                   <Card.Img
+                    variant="top"
+                    src={enrollCourse?.thumbnail}
+                    style={{ width: '1320px', height: '400px', objectFit: 'cover' }}
+                />
+                {isLoadingEnrollCourse  && <Loader />}
+                <Card.Body className="text-center">
+                    <Card.Title>{enrollCourse?.name}</Card.Title>
+                    <Card.Text>{enrollCourse?.instructor}</Card.Text>
+                    <Card.Text><span style={{ fontWeight: 'bold' }}>Description</span>: {enrollCourse?.description}</Card.Text>
+                    <Card.Text><span style={{ fontWeight: 'bold' }}>Duration</span>: {enrollCourse?.duration}</Card.Text>
+                    <Card.Text><span style={{ fontWeight: 'bold' }}>Status</span>: {enrollCourse?.enrollmentStatus}</Card.Text>
+                    <Card.Text><span style={{ fontWeight: 'bold' }}>Location</span>: {enrollCourse?.location}</Card.Text>
+                    <Card.Text><span style={{ fontWeight: 'bold' }}>Prerequisites</span>: {enrollCourse?.prerequisites}</Card.Text>
+                    <Card.Title><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>Syllabus</span></Card.Title>
+                    {enrollCourse?.syllabus && enrollCourse.syllabus.map((item, index) => (
+                        <div key={index}>
+                            <p><span style={{ fontWeight: 'bold' }}>Week {item.week}:</span> {item.topic}</p>
+                            <p>{item.content}</p>
+                        </div>
+                    ))}
+
+                </Card.Body>
+            </Card>
+        ) : course ? (
+            <>
+     
             <Card className="mx-auto shadow p-3 mb-5 bg-white rounded" style={{ width: '80%', height: 'fit-content', marginTop: '50px' }}>
                 <Card.Img
                     variant="top"
                     src={course?.thumbnail}
-                    style={{ width: '1330px', height: '400px', objectFit: 'cover' }}
+                    style={{ width: '1320px', height: '400px', objectFit: 'cover' }}
                 />
-                {(isLoadingCourse || isLoadingEnrollCourse) && <Loader />}
+                {isLoadingCourse  && <Loader />}
                 <Card.Body className="text-center">
                     <Card.Title>{course?.name}</Card.Title>
                     <Card.Text>{course?.instructor}</Card.Text>
                     <Card.Text><span style={{ fontWeight: 'bold' }}>Description</span>: {course?.description}</Card.Text>
                     <Card.Text><span style={{ fontWeight: 'bold' }}>Duration</span>: {course?.duration}</Card.Text>
+                    {userInfo ? <Button variant='dark' className='mt-3' size='lg'> Enroll</Button> :''}
                     
                 </Card.Body>
             </Card>
+        
+           </>
+        ) : (
+            <Card className="mx-auto shadow p-3 mb-5 bg-white rounded" style={{ width: '80%', height: 'fit-content', marginTop: '50px' }}>
+            <Card.Body className="text-center">
+                <Card.Text>
+                    Something went wrong. Please try again later!
+                </Card.Text>
+            </Card.Body>
+        </Card>
         )}
     </>
     );

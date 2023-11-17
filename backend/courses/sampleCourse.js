@@ -1,4 +1,4 @@
-
+// Hard coded sample courses
 
 const sampleCourse1 = {
     id: 1,

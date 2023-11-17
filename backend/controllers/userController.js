@@ -5,6 +5,8 @@ import { sampleCourses } from '../courses/sampleCourse.js';
 import { enrollStudentInCourse } from '../helpers/userHelper.js';
 import { enrolledSpecificCourse } from '../helpers/userHelper.js';
 
+
+// User Authentication
 const authUser = asyncHandler(async(req,res)=>{
     
     const { email, password} = req.body;
@@ -24,6 +26,8 @@ const authUser = asyncHandler(async(req,res)=>{
     }
 });
 
+
+//User registraion
 const registerUser = asyncHandler(async(req,res)=>{
     const { name, email, password} = req.body;
 
@@ -54,6 +58,8 @@ const registerUser = asyncHandler(async(req,res)=>{
    
 });
 
+
+//User logout 
 const logoutUser = asyncHandler(async(req,res)=>{
 
     res.cookie('jwt','',{
@@ -63,6 +69,8 @@ const logoutUser = asyncHandler(async(req,res)=>{
     res.status(200).send({message : 'User logged out'})
 });
 
+
+//Get all the courses
 const getAllCourses = asyncHandler(async(req,res)=>{
 
     
@@ -76,6 +84,8 @@ const getAllCourses = asyncHandler(async(req,res)=>{
       res.json(coursesInfo);
 })
 
+
+//Get a specific course
 const getCourse = asyncHandler(async(req,res)=>{
 
     const courseId = parseInt(req.params.courseId);
@@ -89,6 +99,8 @@ const getCourse = asyncHandler(async(req,res)=>{
      res.json(course);
 })
 
+
+//Enrolling a course
 const enrollCourse = asyncHandler(async (req, res) => {
     const courseId = parseInt(req.body.courseId);
     console.log(courseId,'courseId');
@@ -121,7 +133,7 @@ const enrollCourse = asyncHandler(async (req, res) => {
 });
 
 
-
+//Getting all enrolled course
 const getAllEnrollCourses = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
@@ -153,6 +165,8 @@ const getAllEnrollCourses = asyncHandler(async (req, res) => {
 });
 
 
+
+//Mark as completed course
 const markAsComplete = asyncHandler(async (req, res) => {
     const courseId = parseInt(req.body.courseId);
   
@@ -162,7 +176,6 @@ const markAsComplete = asyncHandler(async (req, res) => {
     if(course){
           // Toggle the complete field for the entire course
           course.complete = !course.complete;
-        console.log(course.complete,'kkkkkkkkkkkkkkkkkkkkk');
         
          res.status(200).json(course.complete);
     }  
@@ -170,6 +183,7 @@ const markAsComplete = asyncHandler(async (req, res) => {
 });
 
 
+//Getting a specific enrolled course
 const getEnrollCourse = asyncHandler(async(req,res)=>{
     const courseId = parseInt(req.params.courseId);
     const userId = req.user._id;

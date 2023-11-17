@@ -28,6 +28,7 @@ const CourseScreen = () => {
 
     useEffect(() => {
         const fetchCourse = async () => {
+            
             try {
                 console.log("Fetching course...");
                 const courseData = await courseApiCall(courseId).unwrap();
@@ -94,7 +95,7 @@ const CourseScreen = () => {
                    <Card.Img
                     variant="top"
                     src={enrollCourse?.thumbnail}
-                    style={{ width: '1320px', height: '400px', objectFit: 'cover' }}
+                    style={{ maxWidth: '100%', width: '100%', height: 'auto', objectFit: 'cover' }}
                 />
                 {isLoadingEnrollCourse  && <Loader />}
                 {isLoadingEnrollingCourse  && <Loader />}
@@ -136,7 +137,7 @@ const CourseScreen = () => {
                 <Card.Img
                     variant="top"
                     src={course?.thumbnail}
-                    style={{ width: '1320px', height: '400px', objectFit: 'cover' }}
+                    style={{ maxWidth: '100%', width: '100%', height: 'auto', objectFit: 'cover' }}
                 />
                 {isLoadingCourse  && <Loader />}
                 <Card.Body className="text-center">

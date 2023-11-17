@@ -13,9 +13,9 @@ const App = () => {
     <>
       <Header />
       <ToastContainer style={{marginTop : '50px'}}/>
-      <Container className='my-2'>
+      
         <Outlet />
-      </Container>
+      
       
     </>
   )

@@ -73,6 +73,11 @@ To run the full-stack project on your local system, you have two options:
    - Clone the project from GitHub.
    - In the root folder, run `docker-compose up --build -d`.
    - The frontend and backend will run in your local system without npm install.
+   - If you are running the project with Docker, set environment variables by creating a .env file in the root folder. Add the following variables:
+      - NODE_ENV = development
+      - PORT = 5000
+      - MONGO_URI = // after connecting MongoDB to Atlas Cloud, paste the URL here
+      - JWT_SECRET = // create a JWT secret for JWT authentication
 
 ### API Documentation
 The API documentation for the backend project is available in Postman. You can view the documentation [here](https://documenter.getpostman.com/view/29225438/2s9YXpWzAm). Please refer to this documentation for details on API endpoints and usage.

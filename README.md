@@ -76,5 +76,3 @@ To run the full-stack project on your local system, you have two options:
 
 ### API Documentation
 The API documentation for the backend project is available in Postman. You can view the documentation [here](https://documenter.getpostman.com/view/29225438/2s9YXpWzAm). Please refer to this documentation for details on API endpoints and usage.
-
-Feel free to explore the project and provide feedback or contribute to its development. Thank you! 🚀

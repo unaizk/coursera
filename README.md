@@ -63,6 +63,11 @@ To run the full-stack project on your local system, you have two options:
    - Clone the project from GitHub.
    - Run `npm install` in the root folder and inside the frontend folder.
    - Execute `npm run dev` in the root folder to run both frontend and backend concurrently.
+   - If you are running the project without Docker, set environment variables by creating a .env file in the root folder. Add the following variables:
+      - NODE_ENV = development
+      - PORT = 5000
+      - MONGO_URI = // after connecting MongoDB to Atlas Cloud, paste the URL here
+      - JWT_SECRET = // create a JWT secret for JWT authentication
 
 **Option 2:**
    - Clone the project from GitHub.
